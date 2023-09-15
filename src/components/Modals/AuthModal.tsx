@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { IoClose } from "react-icons/io5";
 
 import { authModalState, ModalType } from "@/atoms/authModalAtom";
-import useCloseModal from "@/hooks/useCloseModal";
+import useCloseModal from "@/hooks/modalHooks/useCloseModal";
 import Login from "@/components/Modals/Login";
 import SignUp from "@/components/Modals/Signup";
 import ForgotPassword from "@/components/Modals/ResetPassword";
