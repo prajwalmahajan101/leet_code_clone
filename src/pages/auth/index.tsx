@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import NavBar from "@/components/NavBar/NavBar";
+import AuthModal from "@/components/Modals/AuthModal";
 
 type AuthPageProps = {};
 
@@ -11,6 +12,7 @@ const AuthPage: FC<AuthPageProps> = () => {
         <div className="flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none">
           <img src="/hero.png" alt="Hero Image for LeetClone" />
         </div>
+        <AuthModal />
       </div>
     </div>
   );
