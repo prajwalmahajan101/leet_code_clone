@@ -1,11 +1,54 @@
-import React, { FC } from "react";
-import useChangeModalType from "@/hooks/useChangeModalType";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
+import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
+import useCreateUser from "@/hooks/authHooks/useCreateUser";
 
 type SignUpProps = {};
 const SignUp: FC<SignUpProps> = ({}) => {
   const { setModalTypeToLogin } = useChangeModalType();
+
+  const router = useRouter();
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUser();
+
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+    displayName: "",
+  });
+
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputs((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!inputs.email || !inputs.password || !inputs.displayName) {
+      alert("Please fill all fields");
+      return;
+    }
+    try {
+      const newUser = await createUserWithEmailAndPassword(
+        inputs.email,
+        inputs.password,
+      );
+      if (!newUser) return;
+      await router.push("/");
+    } catch (e: any) {
+      alert(e.message);
+    }
+  };
+
+  useEffect(() => {
+    if (error) {
+      alert(error.message);
+    }
+  }, [error]);
+
   return (
-    <form className="space-y-6 px-6 py-4">
+    <form className="space-y-6 px-6 py-4" onSubmit={handleRegister}>
       <h3 className="text-xl font-medium text-white">Register to LeetClone</h3>
       <div>
         <label
@@ -18,9 +61,12 @@ const SignUp: FC<SignUpProps> = ({}) => {
           id="email"
           type="email"
           name="email"
+          required
           className="border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
             block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
           placeholder="name@company.com"
+          value={inputs.email}
+          onChange={handleChangeInput}
         />
       </div>
       <div>
@@ -34,9 +80,12 @@ const SignUp: FC<SignUpProps> = ({}) => {
           id="displayName"
           type="text"
           name="displayName"
+          required
           className="border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
             block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
           placeholder="John Doe"
+          value={inputs.displayName}
+          onChange={handleChangeInput}
         />
       </div>
       <div>
@@ -50,17 +99,23 @@ const SignUp: FC<SignUpProps> = ({}) => {
           id="password"
           type="password"
           name="password"
+          required
           className="border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500
             block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
           placeholder="***********"
+          value={inputs.password}
+          onChange={handleChangeInput}
         />
       </div>
       <button
         type="submit"
         className="w-full text-white focus:ring-blue-300 font-medium rounded-lg
-        text-sm px-5 py-2.5 text-center bg-brand-orange hover:bg-brand-orange-s"
+        text-sm px-5 py-2.5 text-center bg-brand-orange hover:bg-brand-orange-s
+        disabled:bg-amber-200 disabled:text-black disabled:cursor-not-allowed
+        "
+        disabled={loading}
       >
-        Register
+        {loading ? "Registering" : "Register"}
       </button>
       <div
         className="text-sm font-medium text-gray-300"

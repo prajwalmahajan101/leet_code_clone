@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import useChangeModalType from "@/hooks/useChangeModalType";
+import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
 
 type LoginProps = {};
 
