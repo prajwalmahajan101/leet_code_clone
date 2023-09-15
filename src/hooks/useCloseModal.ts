@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { authModalState } from "@/atoms/authModalAtom";
+import { authModalState, ModalType } from "@/atoms/authModalAtom";
 
 const useCloseModal = () => {
   const setAuthModal = useSetRecoilState(authModalState);
   const closeModal = () => {
-    setAuthModal((prevState) => ({ ...prevState, isOpen: false }));
+    setAuthModal((prevState) => ({
+      ...prevState,
+      isOpen: false,
+      type: ModalType.Login,
+    }));
   };
 
   useEffect(() => {
