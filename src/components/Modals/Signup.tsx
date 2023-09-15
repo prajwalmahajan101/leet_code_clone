@@ -1,7 +1,9 @@
 import React, { FC } from "react";
+import useChangeModalType from "@/hooks/useChangeModalType";
 
 type SignUpProps = {};
 const SignUp: FC<SignUpProps> = ({}) => {
+  const { setModalTypeToLogin } = useChangeModalType();
   return (
     <form className="space-y-6 px-6 py-4">
       <h3 className="text-xl font-medium text-white">Register to LeetClone</h3>
@@ -60,7 +62,10 @@ const SignUp: FC<SignUpProps> = ({}) => {
       >
         Register
       </button>
-      <div className="text-sm font-medium text-gray-300">
+      <div
+        className="text-sm font-medium text-gray-300"
+        onClick={setModalTypeToLogin}
+      >
         Already Have An Account?{" "}
         <a href="#" className="text-blue-700 hover:underline">
           Log In

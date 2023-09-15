@@ -1,8 +1,12 @@
 import React, { FC } from "react";
+import useChangeModalType from "@/hooks/useChangeModalType";
 
 type LoginProps = {};
 
 const Login: FC<LoginProps> = ({}) => {
+  const { setModalTypeToForgetPassword, setModalTypeToRegister } =
+    useChangeModalType();
+
   return (
     <form className="space-y-6 px-6 py-4">
       <h3 className="text-xl font-medium text-white">Sign in to LeetClone</h3>
@@ -46,7 +50,10 @@ const Login: FC<LoginProps> = ({}) => {
       >
         Log In
       </button>
-      <button className="flex w-full justify-end">
+      <button
+        className="flex w-full justify-end"
+        onClick={setModalTypeToForgetPassword}
+      >
         <a
           href="#"
           className="text-sm block text-brand-orange hover:underline text-right"
@@ -56,7 +63,11 @@ const Login: FC<LoginProps> = ({}) => {
       </button>
       <div className="text-sm font-medium text-gray-300">
         Not Registered?{" "}
-        <a href="#" className="text-blue-700 hover:underline">
+        <a
+          href="#"
+          className="text-blue-700 hover:underline"
+          onClick={setModalTypeToRegister}
+        >
           Create a new account
         </a>
       </div>
