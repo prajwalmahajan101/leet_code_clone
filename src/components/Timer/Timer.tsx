@@ -12,6 +12,7 @@ const Timer: FC<TimeProps> = ({}) => {
   };
   const refreshTimer = () => {
     setTime(0);
+    setShowTimer(false);
   };
 
   const formatTime = (time: number): string => {
