@@ -39,7 +39,7 @@ const ProblemTable: FC<ProblemTableProps> = () => {
           })}
         </tbody>
         {isOpen && (
-          <tfoot className="fixed top-0 left-0 h-screen w-screen flex items-center justify-center">
+          <div className="fixed top-0 left-0 h-screen w-screen flex items-center justify-center">
             <div
               className="bg-black z-10 opacity-70 top-0 left-0 w-screen h-screen absolute"
               onClick={closeYoutubePlayer}
@@ -60,7 +60,7 @@ const ProblemTable: FC<ProblemTableProps> = () => {
                 </div>
               </div>
             </div>
-          </tfoot>
+          </div>
         )}
       </table>
     </div>
