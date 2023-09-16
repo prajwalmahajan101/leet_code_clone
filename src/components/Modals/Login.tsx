@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
 import useSignInUser from "@/hooks/authHooks/useSignInUser";
 import { useRouter } from "next/router";
+import { errorToast, successToast } from "@/utils/toast/toast";
 
 type LoginProps = {};
 
@@ -23,23 +24,24 @@ const Login: FC<LoginProps> = ({}) => {
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      if (!inputs.email || !inputs.password) {
-        alert("Please fill all fields");
-      }
-      let user = await signInWithEmailAndPassword(
-        inputs.email,
-        inputs.password,
-      );
-      if (!user) return;
-      await router.push("/");
-    } catch (e: any) {
-      alert(e.message);
+    if (!inputs.email || !inputs.password) {
+      errorToast("Please fill all fields");
+      return;
     }
+    let user = await signInWithEmailAndPassword(inputs.email, inputs.password);
+    if (!user) return;
+    successToast("Logged in successfully");
+    await router.push("/");
   };
 
   useEffect(() => {
-    if (error) alert(error.message);
+    if (error) {
+      if (error.code === "auth/invalid-login-credentials") {
+        errorToast("Invalid Email/Password");
+      } else {
+        errorToast(error.message);
+      }
+    }
   }, [error]);
 
   return (

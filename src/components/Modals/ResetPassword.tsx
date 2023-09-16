@@ -1,6 +1,7 @@
 import React, { FC, FormEvent, useEffect, useState } from "react";
 import useForgotPassword from "@/hooks/authHooks/useForgotPassword";
 import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
+import { errorToast, successToast } from "@/utils/toast/toast";
 
 type ForgotPasswordProps = {};
 const ForgotPassword: FC<ForgotPasswordProps> = () => {
@@ -11,27 +12,26 @@ const ForgotPassword: FC<ForgotPasswordProps> = () => {
   const handleForgetPasswordSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email) {
-      alert("Please enter email");
+      errorToast("Please enter email");
       return;
     }
-    try {
-      let success = await sendMail(email);
-      if (success) {
-        alert("Email sent");
-        setSuccess(true);
-      }
-    } catch (err: any) {
-      alert(err.message);
+    let success = await sendMail(email);
+    if (success) {
+      successToast("Password reset Mail sent");
+      setSuccess(true);
     }
   };
 
   useEffect(() => {
-    if (error) alert(error.message);
+    if (error) {
+      errorToast(error.message);
+    }
   }, [error]);
 
   useEffect(() => {
     if (success) setModalTypeToLogin();
   }, [success]);
+
   return (
     <form
       className="space-y-6 px-6 lg:px-8 sm:pb-6 xl:pb-8"
