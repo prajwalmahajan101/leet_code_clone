@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 
 import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
 import useCreateUser from "@/hooks/authHooks/useCreateUser";
+import { errorToast, successToast } from "@/utils/toast/toast";
 
 type SignUpProps = {};
 const SignUp: FC<SignUpProps> = ({}) => {
   const { setModalTypeToLogin } = useChangeModalType();
 
   const router = useRouter();
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUser();
+  const [createUserWithEmailAndPassword, , loading, error] = useCreateUser();
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -26,24 +26,25 @@ const SignUp: FC<SignUpProps> = ({}) => {
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputs.email || !inputs.password || !inputs.displayName) {
-      alert("Please fill all fields");
+      errorToast("Please fill all fields");
       return;
     }
-    try {
-      const newUser = await createUserWithEmailAndPassword(
-        inputs.email,
-        inputs.password,
-      );
-      if (!newUser) return;
-      await router.push("/");
-    } catch (e: any) {
-      alert(e.message);
-    }
+    const newUser = await createUserWithEmailAndPassword(
+      inputs.email,
+      inputs.password,
+    );
+    if (!newUser) return;
+    successToast("Signed up successfully");
+    await router.push("/");
   };
 
   useEffect(() => {
     if (error) {
-      alert(error.message);
+      if (error.code === "auth/weak-password") {
+        errorToast("Password must be at least 6 characters long");
+      } else {
+        errorToast(error.message);
+      }
     }
   }, [error]);
 
