@@ -7,9 +7,14 @@ import { AiFillYoutube } from "react-icons/ai";
 type TableRowProps = {
   problem: Problem;
   isDark: boolean;
+  openYoutubePlayer: (videoId: string) => void;
 };
 
-const TotalRow: FC<TableRowProps> = ({ problem, isDark }) => {
+const TotalRow: FC<TableRowProps> = ({
+  problem,
+  isDark,
+  openYoutubePlayer,
+}) => {
   const difficultyColor =
     problem.difficulty === "Easy"
       ? "text-dark-green-s"
@@ -37,6 +42,9 @@ const TotalRow: FC<TableRowProps> = ({ problem, isDark }) => {
           <AiFillYoutube
             fontSize="24"
             className="cursor-pointer hover:text-red-700"
+            onClick={() => {
+              if (problem.videoId) openYoutubePlayer(problem.videoId);
+            }}
           />
         ) : (
           <p className="text-gray-400">Coming Soon</p>
