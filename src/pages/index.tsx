@@ -1,9 +1,9 @@
+import AppBar from "@/components/AppBar/AppBar";
+
 export default function Home() {
-	return (
-		<>
-			<main>
-				<h1 className="text-sky-950">Hello world!!</h1>
-			</main>
-		</>
-	);
+  return (
+    <main className="bg-dark-layer-2 min-h-screen">
+      <AppBar />
+    </main>
+  );
 }
