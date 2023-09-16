@@ -1,14 +1,10 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import Link from "next/link";
-import { useSetRecoilState } from "recoil";
-import { authModalState } from "@/atoms/authModalAtom";
+import useOpenModal from "@/hooks/modalHooks/useOpenModal";
 
 type NavBarProps = {};
 const NavBar: FC<NavBarProps> = () => {
-  const setAuthModalState = useSetRecoilState(authModalState);
-  const handleClick = () => {
-    setAuthModalState((prevState) => ({ ...prevState, isOpen: true }));
-  };
+  const openModal = useOpenModal();
   return (
     <div className="flex items-center justify-between sm:px-12 px-2 md:px-24">
       <Link href="/" className="flex items-center justify-center h-20">
@@ -19,7 +15,7 @@ const NavBar: FC<NavBarProps> = () => {
           className="bg-brand-orange text-white px-2 py-1 sm:px-4 rounded-md text-sm font-medium border-2 border-transparent
         hover:text-brand-orange hover:bg-white hover:border-2 hover:border-brand-orange
         transition duration-300 ease-in-out"
-          onClick={handleClick}
+          onClick={openModal}
         >
           Sign In
         </button>

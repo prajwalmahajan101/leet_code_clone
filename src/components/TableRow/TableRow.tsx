@@ -41,7 +41,7 @@ const TotalRow: FC<TableRowProps> = ({
         {problem.videoId ? (
           <AiFillYoutube
             fontSize="24"
-            className="cursor-pointer hover:text-red-700"
+            className="cursor-pointer hover:text-red-600"
             onClick={() => {
               if (problem.videoId) openYoutubePlayer(problem.videoId);
             }}

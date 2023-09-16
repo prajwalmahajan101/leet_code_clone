@@ -11,14 +11,14 @@ type AuthPageProps = {};
 const AuthPage: FC<AuthPageProps> = () => {
   const authModal = useRecoilValue(authModalState);
   const router = useRouter();
-  const [user, loading, error] = useAuthUser();
+  const [user, loading] = useAuthUser();
   const [pageLoading, setPageLoading] = useState(true);
   useEffect(() => {
     if (user) {
       router.push("/");
     }
     if (!loading && !user) setPageLoading(false);
-  }, [user]);
+  }, [user, loading]);
 
   if (pageLoading) return null;
 
