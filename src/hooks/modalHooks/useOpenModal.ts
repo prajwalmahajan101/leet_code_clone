@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { authModalState } from "@/atoms/authModalAtom";
+import { authModalState, ModalType } from "@/atoms/authModalAtom";
 
 const useOpenModal = () => {
   const setAuthModal = useSetRecoilState(authModalState);
@@ -7,6 +7,7 @@ const useOpenModal = () => {
     setAuthModal((prevState) => ({
       ...prevState,
       isOpen: true,
+      type: ModalType.Login,
     }));
   };
 };
