@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import AppBar from "@/components/AppBar/AppBar";
+import Workspace from "@/components/Workspace/Workspace";
 
 type ProblemPageProps = {};
 
@@ -7,7 +8,7 @@ const ProblemPage: FC<ProblemPageProps> = () => {
   return (
     <div>
       <AppBar problemPage />
-      <h1>Problem Page</h1>
+      <Workspace />
     </div>
   );
 };
