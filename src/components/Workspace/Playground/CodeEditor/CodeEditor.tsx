@@ -3,12 +3,14 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { javascript } from "@codemirror/lang-javascript";
 import CodeMirror from "@uiw/react-codemirror";
 
-type CodeEditorProps = {};
+type CodeEditorProps = {
+  starterCode: string;
+};
 
-const CodeEditor: FC<CodeEditorProps> = () => {
+const CodeEditor: FC<CodeEditorProps> = ({ starterCode }) => {
   return (
     <CodeMirror
-      value={"const a = 1;"}
+      value={starterCode}
       theme={vscodeDark}
       extensions={[javascript()]}
       style={{ fontSize: 16 }}

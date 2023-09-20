@@ -6,12 +6,15 @@ import PreferenceNav from "@/components/Workspace/Playground/PreferenceNav/Prefe
 import CodeEditor from "@/components/Workspace/Playground/CodeEditor/CodeEditor";
 import TestCases from "@/components/Workspace/Playground/TestCases/TestCases";
 import EditorFooter from "@/components/Workspace/Playground/EditorFooter/EditorFooter";
+import { Problem } from "@/utils/types/problem";
 
-type PlaygroundProps = {};
+type PlaygroundProps = {
+  problem: Problem;
+};
 
-const Playground: FC<PlaygroundProps> = ({}) => {
+const Playground: FC<PlaygroundProps> = ({ problem }) => {
   return (
-    <div className="flex flex-col bg-dark-layer-1 relative">
+    <div className="flex flex-col bg-dark-layer-1 relative overflow-x-hidden">
       <PreferenceNav />
       <Split
         className="h-[calc(100vh-94px)]"
@@ -20,10 +23,10 @@ const Playground: FC<PlaygroundProps> = ({}) => {
         minSize={60}
       >
         <div className="w-full overflow-auto">
-          <CodeEditor />
+          <CodeEditor starterCode={problem.starterCode} />
         </div>
         <div className="w-full px-5 overflow-auto">
-          <TestCases />
+          <TestCases examples={problem.examples} />
         </div>
       </Split>
       <EditorFooter />
