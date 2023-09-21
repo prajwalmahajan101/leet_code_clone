@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
 import useSignInUser from "@/hooks/authHooks/useSignInUser";
 import { useRouter } from "next/router";
-import { errorToast, successToast } from "@/utils/toast/toast";
+import { errorToast, loadingToastCreator } from "@/utils/toast/toast";
 
 type LoginProps = {};
 
@@ -16,6 +16,8 @@ const Login: FC<LoginProps> = ({}) => {
     email: "",
     password: "",
   });
+  const { startingLoading, loadedSuccessfully, errorWhileLoading } =
+    loadingToastCreator("UserSignInToast");
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,21 +30,22 @@ const Login: FC<LoginProps> = ({}) => {
       errorToast("Please fill all fields");
       return;
     }
+    startingLoading("Please Wait, Logging You In....");
     let user = await signInWithEmailAndPassword(inputs.email, inputs.password);
     if (!user) return;
-    successToast("Logged in successfully");
+    loadedSuccessfully("Logged in successfully");
     await router.push("/");
   };
 
   useEffect(() => {
     if (error) {
       if (error.code === "auth/invalid-login-credentials") {
-        errorToast("Invalid Email/Password");
+        errorWhileLoading("Invalid Email/Password");
       } else {
-        errorToast(error.message);
+        errorWhileLoading(error.message);
       }
     }
-  }, [error]);
+  }, [error, errorWhileLoading]);
 
   return (
     <form className="space-y-6 px-6 py-4" onSubmit={handleLogin}>

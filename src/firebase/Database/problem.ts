@@ -1,7 +1,4 @@
-import { doc, setDoc } from "@firebase/firestore";
-import firestore from "@/firebase/Database/index";
+import { storeDataInCollection } from "@/firebase/Database/index";
 import { DBProblem } from "@/utils/types/problem";
 
-export const saveProblem = async (problem: DBProblem) => {
-  await setDoc(doc(firestore, "problems", problem.id), problem);
-};
+export const saveProblem = storeDataInCollection<DBProblem>("problems");
