@@ -40,7 +40,7 @@ const Login: FC<LoginProps> = ({}) => {
   useEffect(() => {
     if (error) {
       if (error.code === "auth/invalid-login-credentials") {
-        errorWhileLoading("Invalid Email/Password");
+        errorWhileLoading("Invalid Credentials");
       } else {
         errorWhileLoading(error.message);
       }

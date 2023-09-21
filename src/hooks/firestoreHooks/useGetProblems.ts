@@ -1,7 +1,7 @@
 import React from "react";
 import { DBProblem } from "@/utils/types/problem";
-import { collection, getDocs, orderBy, query } from "@firebase/firestore";
-import firestore from "@/firebase/Database";
+
+import { getProblems } from "@/firebase/Database/problem";
 
 const useGetProblems = () => {
   const [problems, setProblems] = React.useState<DBProblem[]>([]);
@@ -9,19 +9,11 @@ const useGetProblems = () => {
   const [error, setError] = React.useState<Error>();
 
   React.useEffect(() => {
-    const getProblems = async () => {
+    const fetchProblems = async () => {
       setLoading(true);
       setError(undefined);
       try {
-        const q = query(
-          collection(firestore, "problems"),
-          orderBy("order", "asc"),
-        );
-        const querySnapshot = await getDocs(q);
-        const temp: any[] = [];
-        querySnapshot.forEach((doc) => {
-          temp.push({ id: doc.id, ...doc.data() });
-        });
+        const temp = await getProblems();
         setProblems(temp);
         setLoading(false);
       } catch (error: any) {
@@ -29,7 +21,7 @@ const useGetProblems = () => {
         setLoading(false);
       }
     };
-    getProblems();
+    fetchProblems();
   }, []);
 
   return { problems, loading, error };
