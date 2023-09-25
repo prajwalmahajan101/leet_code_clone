@@ -1,9 +1,15 @@
 import AppBar from "@/components/AppBar/AppBar";
 import ProblemTable from "@/components/ProblemTable/ProblemTable";
 import useGetProblems from "@/hooks/firestoreHooks/useGetProblems";
+import useHasMounted from "@/hooks/generalHooks/useHasMounted";
 
 export default function Home() {
+  const hasMounted = useHasMounted();
+
   const { problems, loading, error } = useGetProblems();
+  if (!hasMounted) {
+    return null;
+  }
   return (
     <main className="bg-dark-layer-2 min-h-screen">
       <AppBar />
