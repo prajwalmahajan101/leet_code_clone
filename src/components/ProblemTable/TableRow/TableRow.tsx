@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { Problem } from "@/dummyData/problems";
+import { DBProblem } from "@/utils/types/problem";
 import { BsCheckCircle } from "react-icons/bs";
 import Link from "next/link";
 import { AiFillYoutube } from "react-icons/ai";
 
 type TableRowProps = {
-  problem: Problem;
+  problem: DBProblem;
   isDark: boolean;
   openYoutubePlayer: (videoId: string) => void;
 };
@@ -30,7 +30,8 @@ const TotalRow: FC<TableRowProps> = ({
       <td className="px-6 py-4">
         <Link
           className="hover:text-blue-600 cursor-pointer"
-          href={`/problems/${problem.id}`}
+          href={problem.link ? `${problem.link}` : `/problems/${problem.id}`}
+          target={problem.link ? "_blank" : undefined}
         >
           {problem.title}
         </Link>

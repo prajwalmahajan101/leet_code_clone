@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 
 import useChangeModalType from "@/hooks/modalHooks/useChangeModalType";
 import useCreateUser from "@/hooks/authHooks/useCreateUser";
-import { errorToast, successToast } from "@/utils/toast/toast";
+import { errorToast, loadingToastCreator } from "@/utils/toast/toast";
+import { User } from "@/utils/types/user";
+import { saveUser } from "@/firebase/Database/user";
 
 type SignUpProps = {};
 const SignUp: FC<SignUpProps> = ({}) => {
@@ -23,30 +25,51 @@ const SignUp: FC<SignUpProps> = ({}) => {
     setInputs((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const { startingLoading, loadedSuccessfully, errorWhileLoading } =
+    loadingToastCreator("UserSignUpToast");
+
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputs.email || !inputs.password || !inputs.displayName) {
       errorToast("Please fill all fields");
       return;
     }
+    startingLoading("Please Wait we are Registering You.....");
     const newUser = await createUserWithEmailAndPassword(
       inputs.email,
       inputs.password,
     );
     if (!newUser) return;
-    successToast("Signed up successfully");
+
+    const userData: User = {
+      id: newUser.user.uid,
+      email: newUser.user.email ? newUser.user.email : inputs.email,
+      displayName: inputs.displayName,
+      starredProblems: [],
+      likedProblems: [],
+      dislikedProblems: [],
+      solvedProblems: [],
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    };
+
+    await saveUser(userData);
+    loadedSuccessfully("Signed up successfully");
     await router.push("/");
   };
 
   useEffect(() => {
     if (error) {
+      // auth/email-already-in-use
       if (error.code === "auth/weak-password") {
-        errorToast("Password must be at least 6 characters long");
+        errorWhileLoading("Password must be at least 6 characters long");
+      } else if (error.code === "auth/email-already-in-use") {
+        errorWhileLoading("You are Already Registered.Try Logging in ...");
       } else {
-        errorToast(error.message);
+        errorWhileLoading(error.message);
       }
     }
-  }, [error]);
+  }, [error, errorWhileLoading]);
 
   return (
     <form className="space-y-6 px-6 py-4" onSubmit={handleRegister}>
