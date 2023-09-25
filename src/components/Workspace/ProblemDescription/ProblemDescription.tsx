@@ -1,10 +1,9 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC } from "react";
 import { Problem } from "@/utils/types/problem";
 import TestCase from "@/components/Workspace/ProblemDescription/TestCase/TestCase";
 import useGetCurrentProblem from "@/hooks/firestoreHooks/useGetCurrentProblem";
 import ProblemHighLights from "@/components/Workspace/ProblemDescription/ProblemHighLights/ProblemHighLights";
 import HighlightLoadingSkeleton from "@/components/Skeletons/HighlightLoadingSkeleton";
-import { difficultyMap } from "@/utils/problems";
 
 type ProblemDescriptionProps = {
   problem: Problem;

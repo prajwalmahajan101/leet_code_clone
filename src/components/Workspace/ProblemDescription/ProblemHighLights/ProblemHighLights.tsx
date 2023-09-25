@@ -38,14 +38,12 @@ const ProblemHighLights: FC<ProblemHighLightsProps> = ({
     toggleLike,
     toggleDislike,
     toggleStarred,
-    toggleSolved,
   } = useGetUserDataOfProblem(problem.id);
 
   const { incrementLike, decrementLike, incrementDislike, decrementDislike } =
     updateFunction;
 
   const [user] = useAuthUser();
-  const starringToast = loadingToastCreator("StarringToast");
   const handleLike = async () => {
     if (!user) {
       errorToast("You Must Be Logged In To Like a Problem");

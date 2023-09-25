@@ -1,6 +1,5 @@
 import { runTransaction } from "@firebase/firestore";
 import firestore from "@/firebase/Database";
-import { DBProblem } from "@/utils/types/problem";
 import { getUserRef } from "@/firebase/Database/user";
 import { getProblemRef } from "@/firebase/Database/problem";
 import { loadingToastCreator } from "@/utils/toast/toast";
