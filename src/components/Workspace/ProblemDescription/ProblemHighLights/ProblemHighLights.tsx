@@ -4,11 +4,12 @@ import { BsCheck2Circle } from "react-icons/bs";
 import {
   AiFillDislike,
   AiFillLike,
+  AiFillStar,
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
-import { TiStar, TiStarOutline } from "react-icons/ti";
+import { TiStarOutline } from "react-icons/ti";
 import useGetUserDataOfProblem from "@/hooks/firestoreHooks/useGetUserDataOfProblem";
-import { errorToast, loadingToastCreator } from "@/utils/toast/toast";
+import { errorToast } from "@/utils/toast/toast";
 import useAuthUser from "@/hooks/authHooks/useAuthUser";
 import likeProblem from "@/utils/Transactions/likeTransactions";
 import dislikeProblem from "@/utils/Transactions/dislikeTransactions";
@@ -147,7 +148,7 @@ const ProblemHighLights: FC<ProblemHighLightsProps> = ({
       <div className="cursor-pointer hover:bg-dark-fill-3  rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-green-s text-dark-gray-6 ">
         {!updating && !starred && <TiStarOutline onClick={handleStar} />}
         {!updating && starred && (
-          <TiStar className="text-brand-orange" onClick={handleStar} />
+          <AiFillStar className="text-dark-yellow" onClick={handleStar} />
         )}
         {updating && <AiOutlineLoading3Quarters className="animate-spin" />}
       </div>
