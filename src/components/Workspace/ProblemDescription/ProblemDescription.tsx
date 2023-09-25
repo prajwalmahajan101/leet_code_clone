@@ -7,8 +7,12 @@ import HighlightLoadingSkeleton from "@/components/Skeletons/HighlightLoadingSke
 
 type ProblemDescriptionProps = {
   problem: Problem;
+  _solved: boolean;
 };
-const ProblemDescription: FC<ProblemDescriptionProps> = ({ problem }) => {
+const ProblemDescription: FC<ProblemDescriptionProps> = ({
+  problem,
+  _solved,
+}) => {
   const {
     currentProblem,
     loading,
@@ -43,6 +47,7 @@ const ProblemDescription: FC<ProblemDescriptionProps> = ({ problem }) => {
             {!loading && currentProblem && (
               <ProblemHighLights
                 problem={currentProblem}
+                _solved={_solved}
                 updateFunction={{
                   incrementLike,
                   decrementLike,
