@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
-import TableHead from "@/components/TableHead/TableHead";
-import TableRow from "@/components/TableRow/TableRow";
+import TableHead from "@/components/ProblemTable/TableHead/TableHead";
+import TableRow from "@/components/ProblemTable/TableRow/TableRow";
 import { IoClose } from "react-icons/io5";
 import YouTube from "react-youtube";
 import useYoutube from "@/hooks/YoutubeHooks/useYoutube";

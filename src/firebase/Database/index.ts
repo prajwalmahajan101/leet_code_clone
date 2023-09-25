@@ -51,4 +51,8 @@ export const getDocumentsFromFirestore =
     return temp;
   };
 
+export const getDocRef = (collection: string) => (id: string) => {
+  return doc(firestore, collection, id);
+};
+
 export default firestore;

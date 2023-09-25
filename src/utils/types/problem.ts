@@ -29,3 +29,7 @@ export type DBProblem = {
   videoId?: string;
   link?: string;
 };
+
+export interface DifficultyMap {
+  [key: string]: string;
+}

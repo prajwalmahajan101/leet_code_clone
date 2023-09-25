@@ -5,7 +5,7 @@ import LogoutButton from "@/components/Buttons/LogoutButton";
 import useOpenModal from "@/hooks/modalHooks/useOpenModal";
 import Image from "next/image";
 import Timer from "@/components/Timer/Timer";
-import ProblemsNavigator from "@/components/ProblemsNavigator/ProblemsNavigator";
+import ProblemsNavigator from "@/components/AppBar/ProblemsNavigator/ProblemsNavigator";
 
 type AppBarProps = {
   problemPage?: boolean;

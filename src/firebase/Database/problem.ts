@@ -1,4 +1,5 @@
 import {
+  getDocRef,
   getDocumentFromFirestore,
   getDocumentsFromFirestore,
   storeDataInCollection,
@@ -10,3 +11,5 @@ export const saveProblem = storeDataInCollection<DBProblem>("problems");
 export const getProblemById = getDocumentFromFirestore<DBProblem>("problems");
 
 export const getProblems = getDocumentsFromFirestore<DBProblem>("problems");
+
+export const getProblemRef = getDocRef("problems");

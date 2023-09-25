@@ -1,17 +1,23 @@
-import React, { FC } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { Problem } from "@/utils/types/problem";
 import TestCase from "@/components/Workspace/ProblemDescription/TestCase/TestCase";
 import useGetCurrentProblem from "@/hooks/firestoreHooks/useGetCurrentProblem";
 import ProblemHighLights from "@/components/Workspace/ProblemDescription/ProblemHighLights/ProblemHighLights";
 import HighlightLoadingSkeleton from "@/components/Skeletons/HighlightLoadingSkeleton";
+import { difficultyMap } from "@/utils/problems";
 
 type ProblemDescriptionProps = {
   problem: Problem;
 };
 const ProblemDescription: FC<ProblemDescriptionProps> = ({ problem }) => {
-  const { currentProblem, loading, problemDifficultyClass } =
-    useGetCurrentProblem(problem.id);
-
+  const {
+    currentProblem,
+    loading,
+    incrementLike,
+    decrementLike,
+    incrementDislike,
+    decrementDislike,
+  } = useGetCurrentProblem(problem.id);
   return (
     <div className="bg-dark-layer-1">
       {/* TAB */}
@@ -38,7 +44,12 @@ const ProblemDescription: FC<ProblemDescriptionProps> = ({ problem }) => {
             {!loading && currentProblem && (
               <ProblemHighLights
                 problem={currentProblem}
-                difficultyClass={problemDifficultyClass}
+                updateFunction={{
+                  incrementLike,
+                  decrementLike,
+                  incrementDislike,
+                  decrementDislike,
+                }}
               />
             )}
             {loading && <HighlightLoadingSkeleton />}

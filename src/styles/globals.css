@@ -105,3 +105,24 @@ code {
     color: white;
     font-size: 1rem;
 }
+
+.difficulty-easy {
+    --tw-text-opacity: 1;
+    color: rgb(0 184 163 / var(--tw-text-opacity));
+    --tw-bg-opacity: 0.25;
+    background-color: rgb(0 184 163 / var(--tw-bg-opacity));
+}
+
+.difficulty-medium {
+    --tw-text-opacity: 1;
+    color: rgb(255 192 30 / var(--tw-text-opacity));
+    --tw-bg-opacity: 0.25;
+    background-color: rgb(255 192 30 / var(--tw-bg-opacity));
+}
+
+.difficulty-hard {
+    --tw-text-opacity: 1;
+    color: rgb(255 55 95 / var(--tw-text-opacity));
+    --tw-bg-opacity: 0.25;
+    background-color: rgb(255 55 95 / var(--tw-bg-opacity));
+}
