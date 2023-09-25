@@ -7,6 +7,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from "@firebase/firestore";
 import firebaseInitializedApp from "@/firebase/firebase";
 
@@ -54,5 +55,11 @@ export const getDocumentsFromFirestore =
 export const getDocRef = (collection: string) => (id: string) => {
   return doc(firestore, collection, id);
 };
+
+export const updateDocument =
+  (collection: string) => async (id: string, data: any) => {
+    let docRef = doc(firestore, collection, id);
+    await updateDoc(docRef, data);
+  };
 
 export default firestore;

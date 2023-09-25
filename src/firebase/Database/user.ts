@@ -3,6 +3,7 @@ import {
   getDocumentFromFirestore,
   getDocumentsFromFirestore,
   storeDataInCollection,
+  updateDocument,
 } from "@/firebase/Database/index";
 import { User } from "@/utils/types/user";
 
@@ -13,3 +14,5 @@ export const getUsers = getDocumentsFromFirestore<User>("users");
 export const getUser = getDocumentFromFirestore<User>("users");
 
 export const getUserRef = getDocRef("users");
+
+export const updateUserData = updateDocument("users");
