@@ -8,12 +8,14 @@ type TableRowProps = {
   problem: DBProblem;
   isDark: boolean;
   openYoutubePlayer: (videoId: string) => void;
+  solved: boolean;
 };
 
 const TotalRow: FC<TableRowProps> = ({
   problem,
   isDark,
   openYoutubePlayer,
+  solved,
 }) => {
   const difficultyColor =
     problem.difficulty === "Easy"
@@ -25,7 +27,7 @@ const TotalRow: FC<TableRowProps> = ({
   return (
     <tr className={`${isDark ? "" : "bg-dark-layer-1"}`}>
       <th className="px-2 py-4 font-medium whitespace-nowrap text-dark-green-s">
-        <BsCheckCircle fontSize={"18"} width={"18"} />
+        {solved && <BsCheckCircle fontSize={"18"} width={"18"} />}
       </th>
       <td className="px-6 py-4">
         <Link

@@ -11,6 +11,7 @@ import { DBProblem } from "@/utils/types/problem";
 type ProblemTableProps = {
   loading: boolean;
   problems: DBProblem[];
+  isSolved: (problemId: string) => boolean;
 };
 
 const tableColumns: string[] = [
@@ -21,7 +22,11 @@ const tableColumns: string[] = [
   "Solution",
 ];
 
-const ProblemTable: FC<ProblemTableProps> = ({ loading, problems }) => {
+const ProblemTable: FC<ProblemTableProps> = ({
+  loading,
+  problems,
+  isSolved,
+}) => {
   const { isOpen, openYoutubePlayer, closeYoutubePlayer, videoId } =
     useYoutube();
   return (
@@ -44,6 +49,7 @@ const ProblemTable: FC<ProblemTableProps> = ({ loading, problems }) => {
                   isDark={idx % 2 == 1}
                   key={problem.id}
                   openYoutubePlayer={openYoutubePlayer}
+                  solved={isSolved(problem.id)}
                 />
               );
             })}
