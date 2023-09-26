@@ -3,12 +3,18 @@ import AppBar from "@/components/AppBar/AppBar";
 import Workspace from "@/components/Workspace/Workspace";
 import { problems } from "@/utils/problems";
 import { Problem } from "@/utils/types/problem";
+import useHasMounted from "@/hooks/generalHooks/useHasMounted";
 
 type ProblemPageProps = {
   problem: Problem;
 };
 
 const ProblemPage: FC<ProblemPageProps> = ({ problem }) => {
+  const hasMounted = useHasMounted();
+
+  if (!hasMounted) {
+    return null;
+  }
   return (
     <div>
       <AppBar problemPage />

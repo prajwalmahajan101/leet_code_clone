@@ -2,11 +2,13 @@ import AppBar from "@/components/AppBar/AppBar";
 import ProblemTable from "@/components/ProblemTable/ProblemTable";
 import useGetProblems from "@/hooks/firestoreHooks/useGetProblems";
 import useHasMounted from "@/hooks/generalHooks/useHasMounted";
+import useGetUserSolvedProblems from "@/hooks/firestoreHooks/useGetUserSolvedProblems";
 
 export default function Home() {
   const hasMounted = useHasMounted();
 
   const { problems, loading, error } = useGetProblems();
+  const { isSolved } = useGetUserSolvedProblems();
   if (!hasMounted) {
     return null;
   }
@@ -22,7 +24,7 @@ export default function Home() {
         </p>
       )}
 
-      <ProblemTable problems={problems} loading={loading} />
+      <ProblemTable problems={problems} loading={loading} isSolved={isSolved} />
     </main>
   );
 }

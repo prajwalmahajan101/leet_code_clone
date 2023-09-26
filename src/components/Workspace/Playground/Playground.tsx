@@ -13,14 +13,29 @@ import { useRouter } from "next/router";
 import { problems } from "@/utils/problems";
 import { updateUserData } from "@/firebase/Database/user";
 import { arrayUnion } from "@firebase/firestore";
+import useLocalStorage from "@/hooks/generalHooks/useLocalStorage";
 
 type PlaygroundProps = {
   problem: Problem;
   onSuccess: () => void;
 };
 
+export interface ISetting {
+  fontSize: string;
+  settingsModalISOpen: boolean;
+  fontSizeDropDownIsOpen: boolean;
+}
+
 const Playground: FC<PlaygroundProps> = ({ problem, onSuccess }) => {
   const [userCode, setUserCode] = useState<string>(problem.starterCode);
+  const [fontSize] = useLocalStorage("lcc-fontSize", "16px");
+
+  const [settings, setSettings] = useState<ISetting>({
+    fontSize: fontSize,
+    settingsModalISOpen: false,
+    fontSizeDropDownIsOpen: false,
+  });
+
   const [user] = useAuthUser();
   const {
     query: { pid },
@@ -73,7 +88,7 @@ const Playground: FC<PlaygroundProps> = ({ problem, onSuccess }) => {
   };
   return (
     <div className="flex flex-col bg-dark-layer-1 relative overflow-x-hidden">
-      <PreferenceNav />
+      <PreferenceNav settings={settings} setSettings={setSettings} />
       <Split
         className="h-[calc(100vh-94px)]"
         direction="vertical"
@@ -81,7 +96,11 @@ const Playground: FC<PlaygroundProps> = ({ problem, onSuccess }) => {
         minSize={60}
       >
         <div className="w-full overflow-auto">
-          <CodeEditor starterCode={userCode} onChange={onChange} />
+          <CodeEditor
+            starterCode={userCode}
+            onChange={onChange}
+            fontSize={settings.fontSize}
+          />
         </div>
         <div className="w-full px-5 overflow-auto">
           <TestCases examples={problem.examples} />
