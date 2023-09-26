@@ -6,16 +6,21 @@ import CodeMirror from "@uiw/react-codemirror";
 type CodeEditorProps = {
   starterCode: string;
   onChange: (value: string) => void;
+  fontSize: string;
 };
 
-const CodeEditor: FC<CodeEditorProps> = ({ starterCode, onChange }) => {
+const CodeEditor: FC<CodeEditorProps> = ({
+  starterCode,
+  onChange,
+  fontSize,
+}) => {
   return (
     <CodeMirror
       value={starterCode}
       theme={vscodeDark}
       onChange={onChange}
       extensions={[javascript()]}
-      style={{ fontSize: 16 }}
+      style={{ fontSize: fontSize }}
     />
   );
 };
